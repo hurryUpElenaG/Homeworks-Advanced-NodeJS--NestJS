@@ -1,0 +1,1210 @@
+{
+  "info": {
+    "_postman_id": "f9cafb58-041a-4641-9555-1fb584f1a6a2",
+    "name": "Advanced NodeJS- NestJS",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "12596130"
+  },
+  "item": [
+    {
+      "name": "homework_01_pet-adoption-center-api",
+      "item": [
+        {
+          "name": "Get Pets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/pet",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "pet"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search Pets",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/pet/search?species=cat",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "pet",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "species",
+                  "value": "cat"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Pet By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/pet/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "pet",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "4"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Docs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/docs",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "docs"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Root endpoint",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/health",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Request Info",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/request-info",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "request-info"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Pet",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Nataly\",\r\n    \"species\": \"Dog\",\r\n    \"breed\": \"hasky\",\r\n    \"age\": 3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/pet",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "pet"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Pet",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Natalija\",\r\n    \"species\": \"Eagle\",\r\n    \"breed\": \"American grey\",\r\n    \"age\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/pet/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "pet",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "4"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Partially Update Pet",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"breed\": \"Golden Retriever\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "localhost:3000/pet/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "pet",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "4"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Adopt Pet",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/pet/:id/adopt",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "pet",
+                ":id",
+                "adopt"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "4"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Return Pet",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "localhost:3000/pet/:id/return",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "pet",
+                ":id",
+                "return"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "4"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Pet",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"breed\": \"Golden Retriever\"\r\n}"
+            },
+            "url": {
+              "raw": "localhost:3000/pet/:id",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "pet",
+                ":id"
+              ],
+              "variable": [
+                {
+                  "key": "id",
+                  "value": "6"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "homework_02_pet-adoption-center-api-DTOs-And-Validation",
+      "item": [
+        {
+          "name": "Validation errors",
+          "item": [
+            {
+              "name": "9. Empty Body on Create",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "10.1 Very Short Name",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"E\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": 3\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "POST http://localhost:3000/pets",
+                  "protocol": "POST http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "10.2 Very Long Name",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": 2\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "10.3 Empty  Name",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": 2\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "11. Name With Digits",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Elena1234567\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": 3\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "11.2 Name With Symbols",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"@Elena\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": 3\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "12. Invalid Species",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Elena\",\r\n  \"species\": \"Tiger\",\r\n  \"breed\": \"Wild\",\r\n  \"age\": 3\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "13.1 Negative Age",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Elena\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": -3\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "13.2 Decimal Age",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Blacky\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": 3.5\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "13.3 Too Large Age",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Blacky\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": 100\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "14.1 Duplicate Tags",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Blacky\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": 100,\r\n  \"tags\": [\"cute\",\"cute\"]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "14.2 Empty Tag",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Blacky\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": 100,\r\n  \"tags\": [\"\"]\r\n}"
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "14.3 Too Many Tags",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Blacky\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": 100,\r\n  \"tags\": [\"a\",\"b\",\"c\",\"d\",\"e\",\"f\",\"g\"]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "15. Invalid Boolean in Medical",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Blacky\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": 100,\r\n  \"medical\": {\r\n    \"vaccinated\": \"yes\",\r\n    \"neutered\": true\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "16. Invalid Date",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Blacky\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": 100,\r\n  \"medical\": {\r\n    \"vaccinated\": \"yes\",\r\n    \"neutered\": true,\r\n    \"lastCheckup\": \"abc\"\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "17. Unknown Extra Field",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Blacky\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": 100,\r\n  \"isAdmin\": true \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "18. Empty Patch Body",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}"
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets/{id}",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets",
+                    "{id}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "19. Invalid UUID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/pets/123",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets",
+                    "123"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "22. Non Existing ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/pets/2222-2222222222-222-222222222222-2222",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets",
+                    "2222-2222222222-222-222222222222-2222"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "20. Adopt Already Adopted Pet",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/pets/:id/adopt",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets",
+                    ":id",
+                    "adopt"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "43871d97-c88d-49ac-832f-22de1313a6b7"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "21. Return Already Available Pet",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/pets/:id/return",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets",
+                    ":id",
+                    "return"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "43871d97-c88d-49ac-832f-22de1313a6b7"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Happy Path",
+          "item": [
+            {
+              "name": "1. Create Pet",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Bella\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Golden Retriever\",\r\n  \"age\": 4,\r\n  \"tags\": [\"friendly\", \"playful\"],\r\n  \"medical\": {\r\n    \"vaccinated\": true,\r\n    \"neutered\": true,\r\n    \"lastCheckup\": \"2026-05-10\",\r\n    \"notes\": \"Healthy dog\"\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "2. Get All Pets",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/pets",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "3.1 Filter Pets by Species",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/pets?species=Dog",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ],
+                  "query": [
+                    {
+                      "key": "species",
+                      "value": "Dog"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "3.3 Filter Pets by Species and Status",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/pets?species=Dog&status=available",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ],
+                  "query": [
+                    {
+                      "key": "species",
+                      "value": "Dog"
+                    },
+                    {
+                      "key": "status",
+                      "value": "available",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "3.2 Filter Pets by Status",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/pets?status=available",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "available"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "4. Get Pet by ID",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/pets/:id",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "5fc6612d-5a3a-4b31-82b5-c60f30c92245"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "5. Partially Update Pet",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"breed\": \"Labrador\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets/:id",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "0bd25408-72e6-49c3-a124-a204d5416f3e"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "6. Fully Update Pet",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Blacky\",\r\n  \"species\": \"Dog\",\r\n  \"breed\": \"Husky\",\r\n  \"age\": 5,\r\n  \"tags\": [\"energetic\"],\r\n  \"medical\": {\r\n    \"vaccinated\": true,\r\n    \"neutered\": false,\r\n    \"lastCheckup\": \"2026-04-01\",\r\n    \"notes\": \"Needs exercise\"\r\n  }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/pets/:id",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "2ea7e447-c124-43e1-a7fb-8315a345a5c3"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "7.1 Adopt Pet",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/pets/:id/adopt",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets",
+                    ":id",
+                    "adopt"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "43871d97-c88d-49ac-832f-22de1313a6b7"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "7.2 Return Pet",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/pets/:id/return",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets",
+                    ":id",
+                    "return"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "43871d97-c88d-49ac-832f-22de1313a6b7"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "8. Delete Pet",
+              "request": {
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3000/pets/:id",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "pets",
+                    ":id"
+                  ],
+                  "variable": [
+                    {
+                      "key": "id",
+                      "value": "67b58878-d17f-4356-ba75-70600c8dc1b3"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
