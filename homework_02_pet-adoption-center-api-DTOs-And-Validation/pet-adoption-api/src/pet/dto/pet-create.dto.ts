@@ -90,7 +90,7 @@ export class CreatePetDto {
   @Type(() => MedicalDto)
   medical?: MedicalDto;
 
-  //@IsOptional()
+  @IsOptional()
   @IsEnum(PetStatus)
   status: PetStatus = PetStatus.AVAILABLE;
 }

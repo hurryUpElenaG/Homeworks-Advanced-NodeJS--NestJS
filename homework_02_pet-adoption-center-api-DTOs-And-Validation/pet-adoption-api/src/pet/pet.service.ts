@@ -35,9 +35,16 @@ export class PetsService {
 
   search(query: QueryPetsDto): PetDto[] {
     return this.pets.filter((pet) => {
-
-      if (!query.species && !query.status && query.minAge === undefined && query.maxAge === undefined) {
-        this.logger.warn('PetsService.search','No filters provided, returning all pets');
+      if (
+        !query.species &&
+        !query.status &&
+        query.minAge === undefined &&
+        query.maxAge === undefined
+      ) {
+        this.logger.warn(
+          'PetsService.search',
+          'No filters provided, returning all pets',
+        );
 
         return this.pets;
       }
@@ -63,22 +70,33 @@ export class PetsService {
   }
 
   getPetById(id: string): PetDto {
-    this.logger.info('PetsService.getPetById',`Retrieving pet with ID: ${id}`);
+    this.logger.info('PetsService.getPetById', `Retrieving pet with ID: ${id}`);
     const pet = this.pets.find((pet) => pet.id === id);
 
     if (!pet) {
-      this.logger.error('PetsService.getPetById',`Pet with ID ${id} not found`);
+      this.logger.error(
+        'PetsService.getPetById',
+        `Pet with ID ${id} not found`,
+      );
       throw new NotFoundException(`Pet with ID ${id} not found`);
     }
 
-    this.logger.debug('PetsService.getPetById',`Found pet with ID ${id}`);
+    this.logger.debug('PetsService.getPetById', `Found pet with ID ${id}`);
     return pet;
   }
 
   createPet(body: CreatePetDto): PetDto {
     const newPet: PetDto = {
       id: randomUUID(),
-      ...body,
+      name: body.name,
+      species: body.species,
+      breed: body.breed,
+      age: body.age,
+      tags: body.tags,
+      medical: body.medical,
+
+      // server-controlled
+      status: PetStatus.AVAILABLE,
     };
 
     this.pets.push(newPet);
@@ -87,9 +105,7 @@ export class PetsService {
   }
 
   updatePet(id: string, body: UpdatePetDto): PetDto {
-    const existingPetIndex = this.pets.findIndex(
-      (pet) => pet.id === id,
-    );
+    const existingPetIndex = this.pets.findIndex((pet) => pet.id === id);
 
     if (existingPetIndex === -1) {
       throw new NotFoundException(`Pet with ID ${id} not found`);
@@ -99,23 +115,25 @@ export class PetsService {
       ...this.pets[existingPetIndex],
       ...body,
       id,
+      status: this.pets[existingPetIndex].status,
     };
 
     return this.pets[existingPetIndex];
   }
 
   partiallyUpdatePet(id: string, body: PartiallyUpdatePetDto): PetDto {
-    const existingPetIndex = this.pets.findIndex(
-      (pet) => pet.id === id,
-    );
+    const existingPetIndex = this.pets.findIndex((pet) => pet.id === id);
 
     if (existingPetIndex === -1) {
       throw new NotFoundException(`Pet with ID ${id} not found`);
     }
 
+    // prevent client from changing status
+    const { status, ...rest } = body;
+
     this.pets[existingPetIndex] = {
       ...this.pets[existingPetIndex],
-      ...body,
+      ...rest,
       id,
     };
 
@@ -123,9 +141,7 @@ export class PetsService {
   }
 
   deletePet(id: string): void {
-    const existingPetIndex = this.pets.findIndex(
-      (pet) => pet.id === id,
-    );
+    const existingPetIndex = this.pets.findIndex((pet) => pet.id === id);
 
     if (existingPetIndex === -1) {
       throw new NotFoundException(`Pet with ID ${id} not found`);
