@@ -12,7 +12,8 @@ import {
 } from '@nestjs/common';
 
 import { TagService } from './tag.service';
-import { CreateTagDto } from './dto/tag-create.dto';
+import type { Tag } from './entities/tag.entity';
+import { CreateTagDto, TagSearchQueryDto } from './dto/tag-create.dto';
 
 @Controller('tag')
 export class TagController {
@@ -28,9 +29,9 @@ export class TagController {
     return this.tagService.getAllTags();
   }
 
-  @Get()
-  searchTags(@Query('q') q?: string) {
-    return this.tagService.searchTags(q);
+  @Get('search')
+  searchTags(@Query() query: TagSearchQueryDto): Promise<Tag[]> {
+    return this.tagService.searchTags(query);
   }
 
   @Get(':id')

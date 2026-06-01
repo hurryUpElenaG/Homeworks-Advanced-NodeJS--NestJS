@@ -50,24 +50,49 @@ export class PetService {
     });
   }*/
 
-  async getAllPets(query: QueryPetsDto): Promise<Pet[]> {
+async getAllPets({
+  query,
+  species,
+  shelterId,
+  adopterId,
+  tags,
+  sortBy,
+  sortDirection,
+  page,
+  pageSize,
+}: QueryPetsDto): Promise<Pet[]> {
   const where: any = {};
 
-  if (query.species) {
-    where.species = query.species;
+  //if (query) {
+   // where.name = ILike(`%${query}%`);
+  //}
+
+  if (species) {
+    where.species = species;
   }
 
-  if (query.shelterId) {
+  if (shelterId) {
     where.shelter = {
-      id: query.shelterId,
+      id: shelterId,
     };
   }
 
-  if (query.tags) {
+  if (tags) {
     where.tags = {
-      name: ILike(`%${query.tags}%`),
+      name: ILike(`%${tags}%`),
     };
   }
+
+  if (adopterId) {
+    where.adoptions = {
+      adopter: {
+        id: adopterId,
+      },
+    };
+  }
+
+  const skip = (page - 1) * pageSize;
+  const take = pageSize;
 
   return this.petRepository.find({
     where,
@@ -75,7 +100,15 @@ export class PetService {
       shelter: true,
       tags: true,
       medical: true,
+      adoptions: {
+        adopter: true,
+      },
     },
+    order: {
+      [sortBy]: sortDirection,
+    },
+    skip,
+    take,
   });
 }
 

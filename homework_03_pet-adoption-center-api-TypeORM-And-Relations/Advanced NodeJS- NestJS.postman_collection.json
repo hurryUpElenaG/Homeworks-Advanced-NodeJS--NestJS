@@ -1432,14 +1432,15 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:3000/tag?q=house",
+                  "raw": "http://localhost:3000/tag/search?q=house",
                   "protocol": "http",
                   "host": [
                     "localhost"
                   ],
                   "port": "3000",
                   "path": [
-                    "tag"
+                    "tag",
+                    "search"
                   ],
                   "query": [
                     {
@@ -1928,7 +1929,7 @@
                   "raw": "{}"
                 },
                 "url": {
-                  "raw": "http://localhost:3000/pet?shelterId=d6a4789d-28a0-42e9-8432-6df1d0ba1e8b",
+                  "raw": "http://localhost:3000/pet?shelterId=d6a4789d-28a0-42e9-8432-6df1d0ba1e8b&sortDirection=DESC&sortBy=name&pageSize=5&page=1",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -1941,6 +1942,22 @@
                     {
                       "key": "shelterId",
                       "value": "d6a4789d-28a0-42e9-8432-6df1d0ba1e8b"
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "DESC"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "name"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "5"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
                     }
                   ]
                 }
@@ -2111,7 +2128,7 @@
                 "method": "GET",
                 "header": [],
                 "url": {
-                  "raw": "http://localhost:3000/pet",
+                  "raw": "http://localhost:3000/pet?sortDirection=DESC&pageSize=5&page=1",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -2119,6 +2136,35 @@
                   "port": "3000",
                   "path": [
                     "pet"
+                  ],
+                  "query": [
+                    {
+                      "key": "q",
+                      "value": "Do",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "sortDirection",
+                      "value": "DESC",
+                      "type": "text"
+                    },
+                    {
+                      "key": "sortBy",
+                      "value": "name",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "5",
+                      "type": "text"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1",
+                      "type": "text"
+                    }
                   ]
                 }
               },

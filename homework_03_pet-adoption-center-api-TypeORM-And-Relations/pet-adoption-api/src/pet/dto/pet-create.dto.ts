@@ -17,6 +17,8 @@ import {
 } from 'class-validator';
 import { Type } from 'class-transformer';
 import { PartialType } from '@nestjs/mapped-types';
+import { SortDirection } from '../../common/types/sort-direction';
+import { PaginationDto } from '../../common/dto/pagination.dto';
 
 export enum PetSpecies {
   DOG = 'Dog',
@@ -25,6 +27,14 @@ export enum PetSpecies {
   BIRD = 'Bird',
   REPTILE = 'Reptile',
   OTHER = 'Other',
+}
+
+export enum PetSortByFields {
+  age = 'age',
+  name = 'name',
+  species  = 'species',
+  breed =  'breed',
+  createdAt = 'createdAt',
 }
 
 export class MedicalDto {
@@ -80,7 +90,11 @@ export class CreatePetDto {
   medical!: MedicalDto;
 }
 
-export class QueryPetsDto {
+export class QueryPetsDto extends PaginationDto{
+  @IsOptional()
+  @IsString()
+  query?: string;
+
   @IsOptional()
   @IsEnum(PetSpecies)
   species?: PetSpecies;
@@ -96,4 +110,12 @@ export class QueryPetsDto {
   @IsOptional()
   @IsString()
   tags?: string;
+
+  @IsOptional()
+  @IsEnum(PetSortByFields)
+  sortBy: PetSortByFields = PetSortByFields.createdAt;
+
+  @IsOptional()
+  @IsEnum(SortDirection)
+  sortDirection: SortDirection = SortDirection.DESC;
 }

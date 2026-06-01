@@ -8,7 +8,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { ILike, Repository } from 'typeorm';
 import { Tag } from './entities/tag.entity';
 import { Pet } from '../pet/entities/pet.entity';
-import { CreateTagDto } from './dto/tag-create.dto';
+import { CreateTagDto, TagSearchQueryDto } from './dto/tag-create.dto';
 
 @Injectable()
 export class TagService {
@@ -42,14 +42,15 @@ export class TagService {
     return this.tagRepository.find();
   }
 
-  async searchTags(q?: string): Promise<Tag[]> {
-    if (!q) {
+  async searchTags(query: TagSearchQueryDto): Promise<Tag[]> {
+
+    if (!query.q) {
       return this.tagRepository.find();
     }
 
     return this.tagRepository.find({
       where: {
-        name: ILike(`%${q}%`),
+        name: ILike(`%${query.q}%`),
       },
     });
   }
