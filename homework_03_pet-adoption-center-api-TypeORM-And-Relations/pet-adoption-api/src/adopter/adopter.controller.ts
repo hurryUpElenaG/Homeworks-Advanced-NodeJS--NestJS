@@ -14,6 +14,7 @@ import {
 import { AdopterService } from './adopter.service';
 import { CreateAdopterDto } from './dto/adopter-create.dto';
 import { UpdateAdopterDto } from './dto/adopter-update.dto';
+import { AdopterResponseDto } from './dto/adopter-response.dto';
 
 @Controller('adopter')
 export class AdopterController {
@@ -32,8 +33,8 @@ export class AdopterController {
   }
 
   @Get(':id')
-  getAdopterById(@Param('id', ParseUUIDPipe) id: string) {
-    return this.adopterService.getAdopterById(id);
+  getAdopterById(@Param('id', ParseUUIDPipe) id: string):  Promise<AdopterResponseDto> {
+    return this.adopterService.getAdopterResponseDtoById(id);
   }
 
   @Patch(':id')

@@ -13,7 +13,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { Shelter } from '../../shelter/entities/shelter.entity';
-import { MedicalRecord } from './medical-record.entity';
+import { MedicalRecord } from '../../medical/entities/medical-record.entity';
 import { Tag } from '../../tag/entities/tag.entity';
 import { Adoption } from '../../adoption/entities/adoption.entity';
 

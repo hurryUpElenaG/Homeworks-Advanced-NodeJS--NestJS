@@ -18,8 +18,9 @@ import { PetService } from './pet.service';
 import { CreatePetDto, QueryPetsDto } from './dto/pet-create.dto';
 import { UpdatePetDto } from './dto/pet-update.dto';
 import { PartiallyUpdatePetDto } from './dto/pet-partially-update.dto';
+import { PetResponseDto } from './dto/pet-response.dto';
 
-import { UpdateMedicalDto } from './dto/medical-update.dto';
+import { UpdateMedicalDto } from '../medical/dto/medical-update.dto';
 import { AdoptPetDto } from './dto/pet-adopt.dto';
 
 @Controller('pet')
@@ -27,13 +28,13 @@ export class PetController {
   constructor(private readonly petService: PetService) {}
 
   @Get()
-  getAllPets(@Query() query: QueryPetsDto) {
+  getAllPets(@Query() query: QueryPetsDto): Promise<PetResponseDto[]> {
     return this.petService.getAllPets(query);
   }
 
   @Get(':id')
-  getPetById(@Param('id', ParseUUIDPipe) id: string) {
-    return this.petService.getPetById(id);
+  getPetById(@Param('id', ParseUUIDPipe) id: string): Promise<PetResponseDto> {
+    return this.petService.getPetResponseDtoById(id);
   }
 
   @Post()

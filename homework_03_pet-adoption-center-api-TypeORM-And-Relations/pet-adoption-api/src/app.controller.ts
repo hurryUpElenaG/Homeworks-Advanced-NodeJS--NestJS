@@ -1,4 +1,4 @@
-import { Controller, Get, Redirect, Headers, Ip } from '@nestjs/common';
+import { Controller, Get, Redirect } from '@nestjs/common';
 
 interface HealthStatus {
   status: string;
@@ -8,11 +8,6 @@ interface HealthStatus {
 
 @Controller()
 export class AppController {
-  
-  @Get('docs')
-  @Redirect('https://docs.nestjs.com/controllers', 302)
-  redirectToDocs(): void {}
-
   
   @Get()
   @Redirect('/health', 302)
@@ -24,14 +19,6 @@ export class AppController {
       status: 'ok',
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
-    };
-  }
-
-  @Get('request-info')
-  requestInfo(@Headers('user-agent') userAgent: string, @Ip() ip: string) {
-    return {
-      userAgent,
-      ip,
     };
   }
 }

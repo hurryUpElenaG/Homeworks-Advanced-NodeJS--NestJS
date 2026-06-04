@@ -4,14 +4,15 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { DataSource, In, Repository, IsNull, ILike } from 'typeorm';
+import { DataSource, In, Repository, IsNull } from 'typeorm';
 import { Pet, PetStatus } from './entities/pet.entity';
 import { Shelter } from '../shelter/entities/shelter.entity';
 import { Tag } from '../tag/entities/tag.entity';
-import { MedicalRecord } from './entities/medical-record.entity';
+import { MedicalRecord } from '../medical/entities/medical-record.entity';
 import { CreatePetDto, QueryPetsDto } from './dto/pet-create.dto';
 import { UpdatePetDto } from './dto/pet-update.dto';
-import { UpdateMedicalDto } from './dto/medical-update.dto';
+import { PetResponseDto } from './dto/pet-response.dto';
+import { UpdateMedicalDto } from '../medical/dto/medical-update.dto';
 import { PartiallyUpdatePetDto } from './dto/pet-partially-update.dto';
 import { Adoption } from '../adoption/entities/adoption.entity';
 import { Adopter } from '../adopter/entities/adopter.entity';
@@ -50,75 +51,133 @@ export class PetService {
     });
   }*/
 
-async getAllPets({
-  query,
-  species,
-  shelterId,
-  adopterId,
-  tags,
-  sortBy,
-  sortDirection,
-  page,
-  pageSize,
-}: QueryPetsDto): Promise<Pet[]> {
-  const where: any = {};
+  async getAllPets({
+    query,
+    species,
+    shelterId,
+    adopterId,
+    tags,
+    sortBy,
+    sortDirection,
+    page,
+    pageSize,
+  }: QueryPetsDto): Promise<PetResponseDto[]> {
+    const qb = this.petRepository
+      .createQueryBuilder('pet')
+      .leftJoinAndSelect('pet.shelter', 'shelter')
+      .leftJoinAndSelect('pet.tags', 'tag')
+      .leftJoinAndSelect('pet.medical', 'medical')
+      .leftJoinAndSelect('pet.adoptions', 'adoption')
+      .leftJoinAndSelect('adoption.adopter', 'adopter');
 
-  //if (query) {
-   // where.name = ILike(`%${query}%`);
-  //}
+    if (query) {
+      qb.andWhere('pet.name ILIKE :query', {
+        query: `%${query}%`,
+      });
+    }
 
-  if (species) {
-    where.species = species;
+    if (species) {
+      qb.andWhere('pet.species = :species', {
+        species,
+      });
+    }
+
+    if (shelterId) {
+      qb.andWhere('shelter.id = :shelterId', {
+        shelterId,
+      });
+    }
+
+    if (adopterId) {
+      qb.andWhere('adopter.id = :adopterId', {
+        adopterId,
+      });
+    }
+
+    if (tags) {
+      const tagNames = tags
+        .split(',')
+        .map((tag) => tag.trim())
+        .filter(Boolean);
+
+      qb.andWhere(
+        `
+      pet.id IN (
+        SELECT pt."petId"
+        FROM pet_tags pt
+        INNER JOIN tag t
+          ON t.id = pt."tagId"
+        WHERE t.name IN (:...tagNames)
+        GROUP BY pt."petId"
+        HAVING COUNT(DISTINCT t.id) = :tagCount
+      )
+      `,
+        {
+          tagNames,
+          tagCount: tagNames.length,
+        },
+      );
+    }
+
+    qb.orderBy(`pet.${sortBy}`, sortDirection);
+
+    qb.skip((page - 1) * pageSize);
+    qb.take(pageSize);
+
+    const pets = await qb.getMany();
+
+    return pets.map((pet) => {
+      const currentAdoption =
+        pet.adoptions.find((adoption) => !adoption.returnedAt) || null;
+
+      return {
+        id: pet.id,
+        name: pet.name,
+        species: pet.species,
+        breed: pet.breed,
+        age: pet.age,
+        status: pet.status,
+        createdAt: pet.createdAt,
+        updatedAt: pet.updatedAt,
+
+        shelter: {
+          id: pet.shelter.id,
+          name: pet.shelter.name,
+          city: pet.shelter.city,
+        },
+
+        medical: {
+          vaccinated: pet.medical.vaccinated,
+          neutered: pet.medical.neutered,
+          lastCheckup: pet.medical.lastCheckup,
+          notes: pet.medical.notes,
+        },
+
+        tags: pet.tags.map((tag) => ({
+          id: tag.id,
+          name: tag.name,
+        })),
+
+        currentAdoption: currentAdoption
+          ? {
+              adoptedAt: currentAdoption.adoptedAt,
+              adopter: {
+                id: currentAdoption.adopter.id,
+                fullName: currentAdoption.adopter.fullName,
+              },
+            }
+          : null,
+      };
+    });
   }
 
-  if (shelterId) {
-    where.shelter = {
-      id: shelterId,
-    };
-  }
-
-  if (tags) {
-    where.tags = {
-      name: ILike(`%${tags}%`),
-    };
-  }
-
-  if (adopterId) {
-    where.adoptions = {
-      adopter: {
-        id: adopterId,
-      },
-    };
-  }
-
-  const skip = (page - 1) * pageSize;
-  const take = pageSize;
-
-  return this.petRepository.find({
-    where,
-    relations: {
-      shelter: true,
-      tags: true,
-      medical: true,
-      adoptions: {
-        adopter: true,
-      },
-    },
-    order: {
-      [sortBy]: sortDirection,
-    },
-    skip,
-    take,
-  });
-}
-
-  async getPetById(id: string): Promise<Pet> {
+  async getPetById(id: string) {
     const pet = await this.petRepository.findOne({
       where: { id },
       relations: {
         shelter: true,
-        tags: true,
         medical: true,
+        tags: true,
         adoptions: {
           adopter: true,
         },
@@ -130,6 +189,52 @@ async getAllPets({
     }
 
     return pet;
+  }
+
+  async getPetResponseDtoById(id: string): Promise<PetResponseDto> {
+    const pet = await this.getPetById(id);
+
+    const currentAdoption =
+      pet.adoptions.find((adoption) => adoption.returnedAt === null) || null;
+
+    return {
+      id: pet.id,
+      name: pet.name,
+      species: pet.species,
+      breed: pet.breed,
+      age: pet.age,
+      status: pet.status,
+      createdAt: pet.createdAt,
+      updatedAt: pet.updatedAt,
+
+      shelter: {
+        id: pet.shelter.id,
+        name: pet.shelter.name,
+        city: pet.shelter.city,
+      },
+
+      medical: {
+        vaccinated: pet.medical.vaccinated,
+        neutered: pet.medical.neutered,
+        lastCheckup: pet.medical.lastCheckup,
+        notes: pet.medical.notes,
+      },
+
+      tags: pet.tags.map((tag) => ({
+        id: tag.id,
+        name: tag.name,
+      })),
+
+      currentAdoption: currentAdoption
+        ? {
+            adoptedAt: currentAdoption.adoptedAt,
+            adopter: {
+              id: currentAdoption.adopter.id,
+              fullName: currentAdoption.adopter.fullName,
+            },
+          }
+        : null,
+    };
   }
 
   async createPet(body: CreatePetDto): Promise<Pet> {
@@ -188,21 +293,27 @@ async getAllPets({
     return this.petRepository.save(pet);
   }
 
-  async partiallyUpdatePet(id: string, body: PartiallyUpdatePetDto): Promise<Pet> {
+  async partiallyUpdatePet(
+    id: string,
+    body: PartiallyUpdatePetDto,
+  ): Promise<Pet> {
     const pet = await this.getPetById(id);
 
     /*Object.assign(pet, body);
     return this.petRepository.save(pet);*/
 
-    const  updatedPet = await this.petRepository.save({
+    const updatedPet = await this.petRepository.save({
       ...pet,
-      ...body
-    })
+      ...body,
+    });
 
     return updatedPet;
   }
 
-  async updateMedical(id: string, body: UpdateMedicalDto): Promise<MedicalRecord> {
+  async updateMedical(
+    id: string,
+    body: UpdateMedicalDto,
+  ): Promise<MedicalRecord> {
     const pet = await this.getPetById(id);
 
     //Object.assign(pet.medical, body);
@@ -210,10 +321,10 @@ async getAllPets({
 
     const updatedMedical = await this.medicalRepository.save({
       ...pet.medical,
-      ...body
-    })
+      ...body,
+    });
 
-    return updatedMedical
+    return updatedMedical;
   }
 
   async adoptPet(petId: string, adopterId: string): Promise<Pet> {

@@ -14,6 +14,7 @@ import {
 import { ShelterService } from './shelter.service'; 
 import { CreateShelterDto } from './dto/shelter-create.dto';
 import { UpdateShelterDto } from './dto/shelter-update.dto';
+import { ShelterResponseDto } from './dto/shelter-response.dto';
 
 @Controller('shelter')
 export class ShelterController {
@@ -30,8 +31,8 @@ export class ShelterController {
   }
 
   @Get(':id')
-  getShelterById(@Param('id', ParseUUIDPipe) id: string,) {
-    return this.shelterService.getShelterById(id);
+  getShelterById(@Param('id', ParseUUIDPipe) id: string,): Promise<ShelterResponseDto> {
+    return this.shelterService.getShelterResponseDtoById(id);
   }
 
   @Patch(':id')

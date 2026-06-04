@@ -1,8 +1,6 @@
 import {
   ArrayUnique,
   IsArray,
-  IsBoolean,
-  IsDateString,
   IsEnum,
   IsInt,
   IsOptional,
@@ -16,7 +14,7 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { PartialType } from '@nestjs/mapped-types';
+import { MedicalDto } from '../../medical/dto/medical-create.dto';
 import { SortDirection } from '../../common/types/sort-direction';
 import { PaginationDto } from '../../common/dto/pagination.dto';
 
@@ -32,26 +30,9 @@ export enum PetSpecies {
 export enum PetSortByFields {
   age = 'age',
   name = 'name',
-  species  = 'species',
-  breed =  'breed',
+  species = 'species',
+  breed = 'breed',
   createdAt = 'createdAt',
-}
-
-export class MedicalDto {
-  @IsBoolean()
-  vaccinated!: boolean;
-
-  @IsBoolean()
-  neutered!: boolean;
-
-  @IsOptional()
-  @IsDateString()
-  lastCheckup?: string;
-
-  @IsOptional()
-  @IsString()
-  @MaxLength(300)
-  notes?: string;
 }
 
 export class CreatePetDto {

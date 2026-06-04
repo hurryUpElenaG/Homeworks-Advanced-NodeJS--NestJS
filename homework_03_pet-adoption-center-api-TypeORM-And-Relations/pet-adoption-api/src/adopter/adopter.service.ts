@@ -10,6 +10,7 @@ import { Adopter } from './entities/adopter.entity';
 import { Adoption } from '../adoption/entities/adoption.entity';
 import { CreateAdopterDto } from './dto/adopter-create.dto';
 import { UpdateAdopterDto } from './dto/adopter-update.dto';
+import { AdopterResponseDto } from './dto/adopter-response.dto';
 
 @Injectable()
 export class AdopterService {
@@ -29,7 +30,9 @@ export class AdopterService {
     });
 
     if (existingAdopter) {
-      throw new ConflictException(`Adopter with email ${body.email} already exists`);
+      throw new ConflictException(
+        `Adopter with email ${body.email} already exists`,
+      );
     }
 
     const adopter = this.adopterRepository.create(body);
@@ -41,7 +44,7 @@ export class AdopterService {
     return this.adopterRepository.find();
   }
 
-  async getAdopterById(id: string): Promise<Adopter> {
+  async getAdopterById(id: string) {
     const adopter = await this.adopterRepository.findOne({
       where: { id },
 
@@ -57,6 +60,30 @@ export class AdopterService {
     }
 
     return adopter;
+  }
+
+  async getAdopterResponseDtoById(id: string): Promise<AdopterResponseDto> {
+    const adopter = await this.getAdopterById(id);
+
+    return {
+      id: adopter.id,
+      fullName: adopter.fullName,
+      email: adopter.email,
+      phone: adopter.phone,
+
+      adoptions: adopter.adoptions
+        .filter((adoption) => adoption.pet)
+        .map((adoption) => ({
+          id: adoption.id,
+          adoptedAt: adoption.adoptedAt,
+          returnedAt: adoption.returnedAt,
+
+          pet: {
+            id: adoption.pet.id,
+            name: adoption.pet.name,
+          },
+        })),
+    };
   }
 
   async updateAdopter(id: string, body: UpdateAdopterDto): Promise<Adopter> {
