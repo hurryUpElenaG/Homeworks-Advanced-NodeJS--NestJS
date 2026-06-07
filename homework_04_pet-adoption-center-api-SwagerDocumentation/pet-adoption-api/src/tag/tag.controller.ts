@@ -26,6 +26,7 @@ import {
   ApiParam,
   ApiQuery,
   ApiTags,
+  ApiBody,
 } from '@nestjs/swagger';
 
 @ApiTags('Tag')
@@ -35,6 +36,9 @@ export class TagController {
 
   @ApiOperation({
     summary: 'Create a new tag',
+  })
+  @ApiBody({
+    type: CreateTagDto,
   })
   @ApiCreatedResponse({
     description: 'Tag created successfully',

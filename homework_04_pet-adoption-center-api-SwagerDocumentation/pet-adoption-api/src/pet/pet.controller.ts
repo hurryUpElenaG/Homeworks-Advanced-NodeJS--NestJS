@@ -136,6 +136,9 @@ export class PetController {
   @ApiNotFoundResponse({
     description: 'Pet not found',
   })
+  @ApiBadRequestResponse({
+      description: 'Validation failed',
+    })
   @Patch(':id')
   partiallyUpdatePet(
     @Param('id', ParseUUIDPipe) id: string,

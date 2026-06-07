@@ -8,6 +8,7 @@ import {
   ApiOperation,
   ApiParam,
   ApiTags,
+  ApiBody,
 } from '@nestjs/swagger';
 
 import {
@@ -35,6 +36,9 @@ export class ShelterController {
 
   @ApiOperation({
     summary: 'Create a shelter',
+  })
+  @ApiBody({
+    type: CreateShelterDto,
   })
   @ApiCreatedResponse({
     description: 'Shelter created successfully',
@@ -89,6 +93,9 @@ export class ShelterController {
     name: 'id',
     description: 'Shelter ID',
     format: 'uuid',
+  })
+  @ApiBody({
+    type: UpdateShelterDto,
   })
   @ApiOkResponse({
     description: 'Shelter updated successfully',

@@ -26,6 +26,7 @@ import {
   ApiOperation,
   ApiParam,
   ApiTags,
+  ApiBody,
 } from '@nestjs/swagger';
 
 @ApiTags('Adopter')
@@ -36,6 +37,9 @@ export class AdopterController {
   @ApiOperation({
     summary: 'Create a new adopter',
     description: 'Creates a new adopter in the system.',
+  })
+  @ApiBody({
+    type: CreateAdopterDto,
   })
   @ApiCreatedResponse({
     description: 'Adopter created successfully',
@@ -95,6 +99,9 @@ export class AdopterController {
     name: 'id',
     description: 'Adopter ID',
     format: 'uuid',
+  })
+  @ApiBody({
+    type: UpdateAdopterDto,
   })
   @ApiOkResponse({
     description: 'Adopter updated successfully',
