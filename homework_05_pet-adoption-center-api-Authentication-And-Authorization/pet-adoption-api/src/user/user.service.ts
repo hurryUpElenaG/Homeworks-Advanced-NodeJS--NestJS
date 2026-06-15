@@ -34,7 +34,7 @@ export class UserService {
     return this.userRepository.save(user);
   }
 
-  async findByEmail(email: string): Promise<User | null> {
+  async findByEmail(email: string): Promise<User> {
     const user = await this.userRepository
       .createQueryBuilder('user')
       .addSelect('user.passwordHash')
@@ -50,7 +50,7 @@ export class UserService {
     return user;
   }
 
-  async findById(id: string): Promise<User | null> {
+  async findById(id: string): Promise<User> {
     const user = await this.userRepository.findOne({
       where: {
         id,
